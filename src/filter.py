@@ -3,7 +3,7 @@ from re import Pattern
 import re
 import json
 
-key: dict[int, str] = {0: "name", 1: "type", 2: "text", 3: "set_origin", 4: "set_origin", 5: "set_number"}
+key: dict[int, str] = {0: "name", 1: "text"}
 
 class Filter():
     def __init__(self, file_path) -> None:
@@ -19,22 +19,21 @@ class Filter():
         self.__filter_cards()
 
     def __set_patterns(self) -> None:
+        name = r"(?:^)(.*?)(?= ›)"
+        text = r"(?:› )(.*?)(?=$)"
+
         if "pokemon" in self.file_path:
-            self.pattern = re.compile(pattern=r"pokemon")
-            self.card_type = "pokemon"
+            name = r"(?:^)(.*?)(?= ·)"
+            text = r"(?:· )(.*?)(?=$)"
+            self.card_type = "Pokemon"
+
         elif "trainer" in self.file_path:
-            self.pattern = re.compile(pattern=r"trainer")
-            self.card_type = "trainer"
+            self.card_type = "Trainer"
+
         elif "energy" in self.file_path:
-            self.pattern = re.compile(pattern=r"energy")
-            name = r"(?:^)(.*?)(?=›)"
-            type = r"(?:›) (\w* \w*)(?=)"
-            text = r"(?:› \w* \w* )(.*?)(?=  .* ›)"
-            set_origin_basic = r"(?:Basic Energy )(.*?)(?= ›)"
-            set_origin_special = r"(?:  )(.*?)(?= ›)"
-            set_number = r"(?:› #)(.*?)(?=$)"
-            self.pattern: list[Pattern[str]] = [re.compile(pattern=name), re.compile(pattern=type), re.compile(pattern=text), re.compile(pattern=set_origin_basic), re.compile(pattern=set_origin_special), re.compile(pattern=set_number)]
-            self.card_type = "energy"
+            self.card_type = "Energy"
+
+        self.pattern: list[Pattern[str]] = [name, text]
 
     def __find_information(self, card: str) -> dict:
         
@@ -43,6 +42,8 @@ class Filter():
             match: re.Match[str] | None = re.findall(pattern=pattern, string=card)
             if match:
                 card_information[key[index]] = match[0]
+
+        card_information["type"] = self.card_type
         return card_information
     
     def __filter_cards(self) -> None:
