@@ -4,6 +4,7 @@ import re
 import json
 
 key: dict[int, str] = {0: "name", 1: "text"}
+key_energy: dict[str, str] = {"{G}": "Grass", "{R}": "Fire", "{W}": "Water", "{L}": "Lightning", "{F}": "Fighting", "{P}": "Psychic", "{D}": "Darkness", "{M}": "Metal", "{C}": "Colorless", "{N}": "Dragon", "{Y}": "Fairy"}
 
 class Filter():
     """Filter the cards
@@ -24,6 +25,19 @@ class Filter():
         """
         self.__set_patterns()
         self.__filter_cards()
+
+    def __replace_match(self, match) -> str:
+        """
+        Replace the match with the key_energy
+
+        Args:
+            match (str): The match to replace
+
+        Returns:
+            str: The replaced match
+        """        
+        matched_text: Any = match.group(0)
+        return key_energy.get(matched_text, matched_text)
 
     def __set_patterns(self) -> None:
         """
@@ -67,7 +81,7 @@ class Filter():
         for index, pattern in enumerate(iterable=self.pattern):
             match: re.Match[str] | None = re.findall(pattern=pattern, string=card)
             if match:
-                card_information[key[index]] = match[0]
+                card_information[key[index]] = re.sub(pattern=r"\{[GRWLFPDMNCY]\}", repl=self.__replace_match, string=match[0])
 
         card_information["type"] = self.card_type
         return card_information
