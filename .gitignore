@@ -9,6 +9,7 @@ __pycache__/
 # files
 *.txt
 *.json
+*.parquet
 
 # Distribution / packaging
 .Python
