@@ -9,6 +9,7 @@ app = Flask(import_name=__name__)
 def hello_world() -> Literal['<p>Hello, World!</p>']:
     return "<p>Hello, World!</p>"
 
+# http://127.0.0.1:5000/query?query=axew
 @app.route(rule="/query", methods=['GET'])
 def query() -> str:
     query: str | None = request.args.get(key='query', default=None)
