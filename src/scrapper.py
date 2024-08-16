@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 
-class scrapper():
+class Scrapper():
     """Scrapper class to scrap the pokemon cards from pkmncards.com
     1. query: str -> The query to search for
     2. base_url: list[str] -> The base url to make a request

@@ -8,6 +8,7 @@ __pycache__/
 
 # files
 *.txt
+*.json
 
 # Distribution / packaging
 .Python
