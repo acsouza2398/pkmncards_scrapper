@@ -7,7 +7,7 @@ class model:
     def __init__(self, df):
         self.df = df
         self.vectorizer = TfidfVectorizer()
-        self.X = self.vectorizer.fit_transform(self.df['text'])
+        self.X = self.vectorizer.fit_transform(self.df['description'])
     
     def get_similar_cards(self, query):
         query_vec = self.vectorizer.transform([query])

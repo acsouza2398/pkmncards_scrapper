@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
 import time
+import json
 
 
 class Scrapper():
@@ -13,9 +14,9 @@ class Scrapper():
     6. __save_cards() -> Save the cards to a file
     """
     def __init__(self) -> None:
-        self.query: str = "pokedex/bulbasaur"
-        self.base_url: list[str] = ["https://pokemondb.net/"]
-        self.cards: list = []
+        self.query: str = "/pokedex/bulbasaur"
+        self.base_url: str = "https://pokemondb.net"
+        self.pokemon = {}
 
     def run(self) -> None:
         """Run the scrapper
@@ -23,10 +24,16 @@ class Scrapper():
         2. Set the query
         3. Run the scrapper
         """
-        for query in self.queries:
-            print(f"Scraping {query} cards...")
-            self.query = query
-            self.__scrap()        
+        c = 0
+        while self.query != None or c < 5:
+            print(f"Scraping {self.query}")
+            self.__scrap()      
+            time.sleep(10)
+            c += 1
+            if c % 5 == 0:
+                break
+
+        self.__save_pokemon()  
 
     def __scrap(self) -> None:
         """Run the scrapper
@@ -35,41 +42,20 @@ class Scrapper():
         3. Loop through the pages and get the cards
         4. Save the cards to a file
         """
-        url: str = self.base_url[0] + self.query + self.base_url[1]
+        url: str = self.base_url + self.query
         print(url)
         soup: BeautifulSoup = self.__make_request(url=url)
-        self.cards = soup.find_all(name='article', class_='type-pkmn_card entry')
+        descriptions = soup.find_all(name='td', class_='cell-med-text')
+        descriptions = ' '.join([description.get_text() for description in descriptions])
 
-        last_page_number: int = self.__get_page_number(soup=soup)
+        self.pokemon[self.query.replace("/pokedex/", "")] = descriptions
 
-        if last_page_number > 1:
-            self.__iterate_pages(last_page_number=last_page_number)
+        self.query: str = self.__get_next(soup=soup)
 
-        self.__save_cards()
+    def __get_next(self, soup: BeautifulSoup) -> str:
 
-    def __iterate_pages(self, last_page_number: int) -> None:
-        """Iterate through the pages and get the cards
-        1. last_page_number: int -> The last page number
-        2. Loop through the pages and get the cards
-        """
-        for page in range(2, last_page_number + 1):
-            print(f"Scraping page {page} of {last_page_number}...")
-            url: str = f"{self.base_url[0]}{self.query}{self.base_url[1]}&paged={page}"
-            soup: BeautifulSoup = self.__make_request(url=url)
-            self.cards.extend(soup.find_all(name='article', class_='type-pkmn_card entry'))
-            time.sleep(15)
-
-            break
-
-    def __get_page_number(self, soup: BeautifulSoup) -> int:
-        """Get the last page number
-        1. soup: BeautifulSoup -> The soup object
-        2. last_page: Tag | NavigableString | None -> The last page tag
-        3. last_page_number: int -> The last page number
-        4. return: int -> The last page number
-        """
-        last_page: Tag | NavigableString | None = soup.find(name='a', title='Last Page (Press L)')
-        return int(last_page.get_text().split()[-1]) if last_page else 1
+        next_query: Tag = soup.find(name='a', class_='entity-nav-next')
+        return next_query['href'] if next_query else None
 
     def __make_request(self, url: str) -> BeautifulSoup:
         """Make a request to the url and return the soup object
@@ -80,12 +66,10 @@ class Scrapper():
         response: requests.Response = requests.get(url=url)
         return BeautifulSoup(markup=response.content, features='html.parser')
 
-    def __save_cards(self) -> None:
-        """Save the cards to a file
+    def __save_pokemon(self) -> None:
+        """Save the pokemon to a file
         1. Open a file in write mode
         2. Loop through the cards and write the text to the file
         """
-        with open(file=f'output/raw/pkmn_cards_{self.query}.txt', mode='w', encoding="utf-8") as f:
-            for card in self.cards:
-                f.write(card.get_text().replace('\n', ' '))
-                f.write('\n')
+        with open(file=f'output/pkmn.json', mode='w', encoding="utf-8") as f:
+            json.dump(self.pokemon, f, ensure_ascii=False, indent=4)
