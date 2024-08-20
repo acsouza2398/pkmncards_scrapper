@@ -6,6 +6,8 @@ from src.model import model
 
 app = Flask(import_name=__name__)
 
+# use :2323
+
 @app.route(rule="/")
 def hello_world() -> Literal['<p>Hello, World!</p>']:
     return "<p>Hello, World!</p>"

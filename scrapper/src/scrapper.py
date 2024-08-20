@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup, NavigableString, Tag
+import time
 
 
 class Scrapper():
@@ -12,9 +13,8 @@ class Scrapper():
     6. __save_cards() -> Save the cards to a file
     """
     def __init__(self) -> None:
-        self.query: str = ""
-        self.queries: list[str] = ["pokemon", "trainer", "energy"]
-        self.base_url: list[str] = ["https://pkmncards.com/?s=type%3A", "&sort=date&ord=auto&display=text"]
+        self.query: str = "pokedex/bulbasaur"
+        self.base_url: list[str] = ["https://pokemondb.net/"]
         self.cards: list = []
 
     def run(self) -> None:
@@ -36,6 +36,7 @@ class Scrapper():
         4. Save the cards to a file
         """
         url: str = self.base_url[0] + self.query + self.base_url[1]
+        print(url)
         soup: BeautifulSoup = self.__make_request(url=url)
         self.cards = soup.find_all(name='article', class_='type-pkmn_card entry')
 
@@ -56,6 +57,8 @@ class Scrapper():
             url: str = f"{self.base_url[0]}{self.query}{self.base_url[1]}&paged={page}"
             soup: BeautifulSoup = self.__make_request(url=url)
             self.cards.extend(soup.find_all(name='article', class_='type-pkmn_card entry'))
+            time.sleep(15)
+
             break
 
     def __get_page_number(self, soup: BeautifulSoup) -> int:
