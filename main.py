@@ -2,6 +2,7 @@ from typing import Literal
 from flask import Flask, request, Response
 import json
 import pandas as pd
+from src.model import model
 
 app = Flask(import_name=__name__)
 
@@ -14,7 +15,8 @@ def hello_world() -> Literal['<p>Hello, World!</p>']:
 def query() -> str:
     query: str | None = request.args.get(key='query', default=None)
     df: pd.DataFrame = pd.read_parquet("scrapper/output/compiled_cards.parquet")
-    result: pd.DataFrame = df[df["text"].str.contains(query, case=False)].head(n=10)
+    model_instance: model = model(df=df)
+    result: pd.DataFrame = model_instance.get_similar_cards(query=query)
     response = {
         "result": json.dumps(obj=result.to_dict(orient='records'), ensure_ascii=False),
         "number_of_results": len(result),
