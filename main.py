@@ -16,10 +16,18 @@ def hello_world() -> Literal['<p>Hello, World!</p>']:
 # http://10.103.0.28:2323/query?query=sun
 @app.route(rule="/query", methods=['GET'])
 def query() -> str:
+    """
+    Route to query the pokemon entries
+    Args:
+        query (str): The query
+
+    Returns:
+        str: The response data in json format
+    """    
     query: str | None = request.args.get(key='query', default=None)
     df: pd.DataFrame = pd.read_parquet("scrapper/output/compiled_pokemon.parquet")
     model_instance: model = model(df=df)
-    result = model_instance.get_similar_cards(query=query)
+    result: pd.DataFrame = model_instance.get_similar_cards(query=query)
     response = {
         "result": json.dumps(obj=result.to_dict(orient='records'), ensure_ascii=False),
         "number_of_results": len(result),

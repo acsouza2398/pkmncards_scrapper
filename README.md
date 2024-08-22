@@ -38,7 +38,12 @@ python main.py
 This should start up the API, and you should see a message saying that the API is running in the console.
 
 ### How to query
-The API has one endpoint, which is `/query`. This endpoint receives a query parameter called `query` that is the phrase or word that the user wants to search for in the pokédex entries. The API will return a list of pokémon and their pokédex entries that are similar to the phrase or word that the user provided, up to 10 results.
+The API has one endpoint, which is `/query`. This endpoint receives a query parameter called `query` that is the phrase or word that the user wants to search for in the pokédex entries. The API will return a list of pokémon and their pokédex entries that are similar to the phrase or word that the user provided, up to 10 results. In order to ensure that the results are relevant, the API uses the cosine similarity, which is a normalized dot product, between the query and the pokédex entries to rank the results. Based on the scores, the API returns the top 10 results that are most similar to the query. The cuttoff for the results is 0.11, so only results with a score higher than 0.11 are returned. This number was chosen based on the results obtained from the dataset and the queries made.
+<br>The response is a JSON object that contains the following fields:
+- `result`: A list of dictionaries, where each dictionary contains the name of the pokémon, the description of the pokémon, and the score of the pokémon. The score is the cosine similarity between the query and the pokédex entry of the pokémon.
+- `number_of_results`: The number of results returned by the API.
+- `query`: The query that was made by the user.
+- `message`: A message that indicates if the query was successful or not.
 
 The Flask server is hosted on `http://10.103.0.28:2323/`.
 
