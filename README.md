@@ -50,7 +50,7 @@ Request:
 GET http://10.103.0.28:2323/query?query=sun
 ```
 Response (Shortened for brevity):
-```json
+```
 {
     'result': [
         {'name': 'larvesta',
@@ -95,7 +95,7 @@ GET http://10.103.0.28:2323/query?query=lives%20in%20volcanoes
 ```
 
 Response (Shortened for brevity):
-```json
+```
 {
     'result': [
         {'name': 'camerupt',
@@ -126,7 +126,7 @@ GET http://10.103.0.28:2323/query?query=bully
 ```
 
 Response (Shortened for brevity):
-```json
+```
 {
     'result': [
         {'name': 'sharpedo',
