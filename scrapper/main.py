@@ -3,7 +3,7 @@ from src.scrapper import Scrapper
 from src.compile import Compile
 
 def main():
-    # Scrapper().run()
+    Scrapper().run()
 
     Compile().run()
 

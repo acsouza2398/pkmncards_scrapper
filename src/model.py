@@ -14,4 +14,6 @@ class model:
         cosine_similarities = cosine_similarity(query_vec, self.X).flatten()
         top_indices = cosine_similarities.argsort()[-10:][::-1]
         similar_cards = self.df.iloc[top_indices]
+        similar_cards["score"] = cosine_similarities[top_indices]
+        similar_cards = similar_cards[similar_cards['score'] > 0.11]
         return similar_cards

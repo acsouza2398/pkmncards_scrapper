@@ -24,14 +24,10 @@ class Scrapper():
         2. Set the query
         3. Run the scrapper
         """
-        c = 0
-        while self.query != None or c < 5:
+        while self.query != None:
             print(f"Scraping {self.query}")
             self.__scrap()      
             time.sleep(10)
-            c += 1
-            if c % 5 == 0:
-                break
 
         self.__save_pokemon()  
 
@@ -51,6 +47,9 @@ class Scrapper():
         self.pokemon[self.query.replace("/pokedex/", "")] = descriptions
 
         self.query: str = self.__get_next(soup=soup)
+
+        if self.query == None:
+            print("Finished Scraping")
 
     def __get_next(self, soup: BeautifulSoup) -> str:
 
