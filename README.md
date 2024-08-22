@@ -52,39 +52,39 @@ GET http://10.103.0.28:2323/query?query=sun
 Response (Shortened for brevity):
 ```json
 {
-    "result": "[
-        {\"name\": \"larvesta\",
-        \"description\": \"This Pokémon was believed to have been born from the sun. When it evolves, its entire body is engulfed in flames. \",
-        \"score\": 0.3096613720027947},
-        {\"name\": \"sunflora\",
-        \"description\": \"It converts sunlight into energy. In the darkness after sunset, it closes its petals and becomes still. In the daytime, it rushes about in a hectic manner, but it comes to a complete stop when the sun sets. \",
-        \"score\": 0.25370704345895345},
-        {\"name\": \"solgaleo\",
-        \"description\": \"It is said to live in another world. Solgaleo was once known as the Beast That Devours the Sun.\",
-        \"score\": 0.23062408727517622},
-        {\"name\": \"volcarona\",
-        \"description\": \"When volcanic ash darkened the atmosphere, it is said that Volcarona’s fire provided a replacement for the sun. \",
-        \"score\": 0.22962145834689687},
-        {\"name\": \"helioptile\",
-        \"description\": \"They make their home in deserts. They can generate their energy from basking in the sun, so eating food is not a requirement.\",
-        \"score\": 0.22481717217325028},
-        {\"name\": \"solrock\",
-        \"description\": \"SOLROCK is a new species of POKéMON that is said to have fallen from space. It floats in air and moves silently. In battle, this POKéMON releases intensely bright light. Sunlight is the source of SOLROCK’s power.\",
-        \"score\": 0.2074828376007953},
-        {\"name\": \"stonjourner\",
-        \"description\": \"It stands in grasslands, watching the sun’s descent from zenith to horizon. This Pokémon has a talent for delivering dynamic kicks.\",
-        \"score\": 0.20398634504554483},
-        {\"name\": \"sandile\",
-        \"description\": \"They live buried in the sands of the desert. The sun-warmed sands prevent their body temperature from dropping. It moves along below the sand’s surface, except for its nose and eyes. \", \"score\": 0.19157121316744447},
-        {\"name\": \"sprigatito\",
-        \"description\": \"Its fluffy fur is similar in composition to plants. This Pokémon frequently washes its face to keep it from drying out. The sweet scent its body gives off mesmerizes those around it. The scent grows stronger when this Pokémon is in the sun.\",
-        \"score\": 0.18118956538947323},
-        {\"name\": \"vanillite\",
-        \"description\": \"The temperature of their breath is -58° F. They create snow crystals and make snow fall in the areas around them. This Pokémon formed from icicles bathed in energy from the morning sun. It sleeps buried in snow.\",
-        \"score\": 0.1709084791710776}]",
-    "number_of_results": 10,
-    "query": "sun",
-    "message": "OK"
+    'result': [
+        {'name': 'larvesta',
+        'description': 'This Pokémon was believed to have been born from the sun. When it evolves, its entire body is engulfed in flames. ',
+        'score': 0.3096613720027947},
+        {'name': 'sunflora',
+        'description': 'It converts sunlight into energy. In the darkness after sunset, it closes its petals and becomes still. In the daytime, it rushes about in a hectic manner, but it comes to a complete stop when the sun sets. ',
+        'score': 0.25370704345895345},
+        {'name': 'solgaleo',
+        'description': 'It is said to live in another world. Solgaleo was once known as the Beast That Devours the Sun.',
+        'score': 0.23062408727517622},
+        {'name': 'volcarona',
+        'description': 'When volcanic ash darkened the atmosphere, it is said that Volcarona’s fire provided a replacement for the sun. ',
+        'score': 0.22962145834689687},
+        {'name': 'helioptile',
+        'description': 'They make their home in deserts. They can generate their energy from basking in the sun, so eating food is not a requirement.',
+        'score': 0.22481717217325028},
+        {'name': 'solrock',
+        'description': 'SOLROCK is a new species of POKéMON that is said to have fallen from space. It floats in air and moves silently. In battle, this POKéMON releases intensely bright light. Sunlight is the source of SOLROCK’s power.',
+        'score': 0.2074828376007953},
+        {'name': 'stonjourner',
+        'description': 'It stands in grasslands, watching the sun’s descent from zenith to horizon. This Pokémon has a talent for delivering dynamic kicks.',
+        'score': 0.20398634504554483},
+        {'name': 'sandile',
+        'description': 'They live buried in the sands of the desert. The sun-warmed sands prevent their body temperature from dropping. It moves along below the sand’s surface, except for its nose and eyes. ', 'score': 0.19157121316744447},
+        {'name': 'sprigatito',
+        'description': 'Its fluffy fur is similar in composition to plants. This Pokémon frequently washes its face to keep it from drying out. The sweet scent its body gives off mesmerizes those around it. The scent grows stronger when this Pokémon is in the sun.',
+        'score': 0.18118956538947323},
+        {'name': 'vanillite',
+        'description': 'The temperature of their breath is -58° F. They create snow crystals and make snow fall in the areas around them. This Pokémon formed from icicles bathed in energy from the morning sun. It sleeps buried in snow.',
+        'score': 0.1709084791710776}],
+    'number_of_results': 10,
+    'query': 'sun',
+    'message': 'OK'
 }
 ```
 
@@ -97,24 +97,24 @@ GET http://10.103.0.28:2323/query?query=lives%20in%20volcanoes
 Response (Shortened for brevity):
 ```json
 {
-    "result": "[
-        {\"name\": \"camerupt\",
-        \"description\": \"CAMERUPT has a volcano inside its body. Magma of 18,000 degrees F courses through its body. Occasionally, the humps on this POKéMON’s back erupt, spewing the superheated magma.It lives in the crater of a volcano.\",
-        \"score\": 0.33971504773742917},
-        {\"name\": \"pansear\",
-        \"description\": \"When it is angered, the temperature of its head tuft reaches 600° F. It uses its tuft to roast berries. This Pokémon lives in caves in volcanoes. The fire within the tuft on its head can reach 600° F. Very intelligent, it roasts berries before eating them.\",
-        \"score\": 0.26622127406885154},
-        {\"name\": \"turtonator\",
-        \"description\": \"The shell on its back is chemically unstable and explodes violently if struck. The hole in its stomach is its weak point. It lives in volcanoes and eats sulfur and other minerals. Materials from the food it eats form the basis of its explosive shell. Its exploding shell poses a real danger but is sensitive to moisture.\",
-        \"score\": 0.12532574046386025},
-        {\"name\": \"larvesta\", \"description\": \"This Pokémon was believed to have been born from the sun. When it evolves, its entire body is engulfed in flames. The base of volcanoes is where they make their homes. \",
-        \"score\": 0.11479693140676235},
-        {\"name\": \"entei\",
-        \"description\": \"Volcanoes erupt when it barks. Unable to restrain its extreme power, it races headlong around the land. A POKéMON that races across the land. It is said that one is born every time a new volcano appears. This brawny POKéMON courses around the earth, spouting flames hotter than a volcano’s magma. ENTEI embodies the passion of magma. This POKéMON is thought to have been born in the eruption of a volcano.\",
-        \"score\": 0.11153690992797687}]",
-    "number_of_results": 5,
-    "query": "lives in volcanoes",
-    "message": "OK"
+    'result': [
+        {'name': 'camerupt',
+        'description': 'CAMERUPT has a volcano inside its body. Magma of 18,000 degrees F courses through its body. Occasionally, the humps on this POKéMON’s back erupt, spewing the superheated magma.It lives in the crater of a volcano.',
+        'score': 0.33971504773742917},
+        {'name': 'pansear',
+        'description': 'When it is angered, the temperature of its head tuft reaches 600° F. It uses its tuft to roast berries. This Pokémon lives in caves in volcanoes. The fire within the tuft on its head can reach 600° F. Very intelligent, it roasts berries before eating them.',
+        'score': 0.26622127406885154},
+        {'name': 'turtonator',
+        'description': 'The shell on its back is chemically unstable and explodes violently if struck. The hole in its stomach is its weak point. It lives in volcanoes and eats sulfur and other minerals. Materials from the food it eats form the basis of its explosive shell. Its exploding shell poses a real danger but is sensitive to moisture.',
+        'score': 0.12532574046386025},
+        {'name': 'larvesta', 'description': 'This Pokémon was believed to have been born from the sun. When it evolves, its entire body is engulfed in flames. The base of volcanoes is where they make their homes. ',
+        'score': 0.11479693140676235},
+        {'name': 'entei',
+        'description': 'Volcanoes erupt when it barks. Unable to restrain its extreme power, it races headlong around the land. A POKéMON that races across the land. It is said that one is born every time a new volcano appears. This brawny POKéMON courses around the earth, spouting flames hotter than a volcano’s magma. ENTEI embodies the passion of magma. This POKéMON is thought to have been born in the eruption of a volcano.',
+        'score': 0.11153690992797687}],
+    'number_of_results': 5,
+    'query': 'lives in volcanoes',
+    'message': 'OK'
 }
 ```
 
@@ -128,15 +128,15 @@ GET http://10.103.0.28:2323/query?query=bully
 Response (Shortened for brevity):
 ```json
 {
-    "result": "[
-        {\"name\": \"sharpedo\",
-        \"description\":\"Nicknamed “the bully of the sea,” SHARPEDO is widely feared. Its cruel fangs grow back immediately if they snap off.\",
-        \"score\": 0.2681954994034775},
-        {\"name\": \"drampa\", \"description\": \"This Pokémon is friendly to people and loves children most of all. It comes from deep in the mountains to play with children it likes in town. If a child it has made friends with is bullied, Drampa will find the bully’s house and burn it to the ground. It appears in towns and plays with the children.\",
-        \"score\": 0.11439216918030394}]",
-    "number_of_results": 2,
-    "query": "bully",
-    "message": "OK"
+    'result': [
+        {'name': 'sharpedo',
+        'description':'Nicknamed “the bully of the sea,” SHARPEDO is widely feared. Its cruel fangs grow back immediately if they snap off.',
+        'score': 0.2681954994034775},
+        {'name': 'drampa', 'description': 'This Pokémon is friendly to people and loves children most of all. It comes from deep in the mountains to play with children it likes in town. If a child it has made friends with is bullied, Drampa will find the bully’s house and burn it to the ground. It appears in towns and plays with the children.',
+        'score': 0.11439216918030394}],
+    'number_of_results': 2,
+    'query': 'bully',
+    'message': 'OK'
 }
 ```
 
