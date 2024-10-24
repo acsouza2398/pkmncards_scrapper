@@ -1,4 +1,4 @@
-# C5.1. Make an API
+# DL4.1. APS2 - Vector-Based Search
 Student: Ana Carolina Souza
 
 ## Description
