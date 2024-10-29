@@ -7,9 +7,9 @@ __pycache__/
 *.so
 
 # files
-*.txt
-*.json
-*.parquet
+# *.txt
+# *.json
+# *.parquet
 
 # Distribution / packaging
 .Python
