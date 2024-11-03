@@ -7,7 +7,8 @@ __pycache__/
 *.so
 
 # files
-# *.txt
+!requirements.txt
+*.txt
 # *.json
 # *.parquet
 
