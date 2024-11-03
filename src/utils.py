@@ -6,6 +6,16 @@ from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
 
 def loss(model, embeddings):
+    """
+    Fine-tune the model using the embeddings.
+
+    Args:
+        model: The autoencoder model.
+        embeddings: The embeddings to fine-tune the model.
+
+    Returns:
+        tuned_embeddings : The tuned embeddings.
+    """    
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     loss_fn = nn.MSELoss()
 
@@ -22,23 +32,20 @@ def loss(model, embeddings):
     return tuned_embeddings
 
 def check_embeddings(tuned_model, model, n_clusters=5):
-    tsne_pre = TSNE(n_components=2, random_state=42)
-    embeddings = tsne_pre.fit_transform(model.cpu().numpy())
+    """
+    Plot the embeddings and compare the clusters.
 
-    tsne_tuned = TSNE(n_components=2, random_state=42)
-    tuned_embeddings = tsne_tuned.fit_transform(tuned_model.cpu().numpy())
+    Args:
+        tuned_model : The tuned model.
+        model : The original model.
+        n_clusters (int, optional): Amount of clusters to be generated for k-means. Defaults to 5.
+    """    
+    tsne_og = TSNE(n_components=2, random_state=42)
+    embeddings = tsne_og.fit_transform(model.cpu().numpy())
 
-    print("Original Embeddings Shape:", embeddings.shape)
-    print("Tuned Embeddings Shape:", tuned_embeddings.shape)
-
-    print("Unique points in Original Embeddings:", len(set([tuple(point) for point in embeddings])))
-    print("Unique points in Tuned Embeddings:", len(set([tuple(point) for point in tuned_embeddings])))
-
-    # Perform K-means clustering
     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     clusters = kmeans.fit_predict(embeddings)
 
-    # Create a scatter plot of the embeddings with clusters
     plt.figure(figsize=(5, 5))
     plt.scatter(embeddings[:, 0], embeddings[:, 1], c=clusters, cmap='viridis', alpha=0.5)
     
@@ -50,10 +57,13 @@ def check_embeddings(tuned_model, model, n_clusters=5):
     plt.savefig('outputs/embeddings.png')
     plt.show()
 
-    # Perform K-means clustering on tuned embeddings
+    # Plot tuned embeddings
+
+    tsne_tuned = TSNE(n_components=2, random_state=42)
+    tuned_embeddings = tsne_tuned.fit_transform(tuned_model.cpu().numpy())
+
     tuned_clusters = kmeans.fit_predict(tuned_embeddings)
 
-    # Create a scatter plot of the tuned embeddings with clusters
     plt.figure(figsize=(5, 5))
     plt.scatter(tuned_embeddings[:, 0], tuned_embeddings[:, 1], c=tuned_clusters, cmap='viridis', alpha=0.5)
     

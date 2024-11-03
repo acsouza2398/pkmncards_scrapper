@@ -1,6 +1,11 @@
 import torch.nn as nn
+import torch
 
 class AutoEncoder(nn.Module):
+    """
+    AutoEncoder class.
+
+    """    
     def __init__(self, input_dim, hidden_dim):
         super(AutoEncoder, self).__init__()
         self.encoder = nn.Sequential(
@@ -22,3 +27,16 @@ class AutoEncoder(nn.Module):
         encoded = self.encoder(x)
         decoded = self.decoder(encoded)
         return decoded
+    
+    def encode(self, x):
+        """
+        Encode the input data to the latent space.
+        
+        Args:
+            x: Input tensor to encode.
+        
+        Returns:
+            Encoded representation of the input.
+        """
+        with torch.no_grad():  # Disable gradient tracking
+            return self.encoder(x)  # Return the encoded representation
