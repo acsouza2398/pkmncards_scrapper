@@ -4,6 +4,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
+from collections import Counter
 
 def loss(model, embeddings):
     """
@@ -31,7 +32,7 @@ def loss(model, embeddings):
 
     return tuned_embeddings
 
-def check_embeddings(tuned_model, model, n_clusters=5):
+def check_embeddings(tuned_model, model, descriptions, n_clusters=5):
     """
     Plot the embeddings and compare the clusters.
 
@@ -57,6 +58,8 @@ def check_embeddings(tuned_model, model, n_clusters=5):
     plt.savefig('outputs/embeddings.png')
     plt.show()
 
+    # original_cluster_analysis(clusters, descriptions, n_clusters)
+
     # Plot tuned embeddings
 
     tsne_tuned = TSNE(n_components=2, random_state=42)
@@ -74,3 +77,37 @@ def check_embeddings(tuned_model, model, n_clusters=5):
     plt.grid(True)
     plt.savefig('outputs/tuned_embeddings.png')
     plt.show()
+
+    # tuned_cluster_analysis(tuned_clusters, descriptions, n_clusters)
+
+
+def original_cluster_analysis(clusters, descriptions, n_clusters):
+    """
+    Analyze the original clusters to identify the most common descriptions.
+
+    Args:
+        clusters: Array of cluster labels for the original embeddings.
+        descriptions: List of descriptions corresponding to the embeddings.
+        n_clusters: Number of clusters.
+    """
+    for cluster_id in range(n_clusters):
+        cluster_descriptions = [descriptions[i] for i in range(len(descriptions)) if clusters[i] == cluster_id]
+        if cluster_descriptions:
+            most_common = Counter(cluster_descriptions).most_common(3)  # Top 3 common descriptions
+            print(f'Cluster {cluster_id}: {most_common}')
+
+
+def tuned_cluster_analysis(clusters, descriptions, n_clusters):
+    """
+    Analyze the tuned clusters to identify the most common descriptions.
+
+    Args:
+        clusters: Array of cluster labels for the tuned embeddings.
+        descriptions: List of descriptions corresponding to the embeddings.
+        n_clusters: Number of clusters.
+    """
+    for cluster_id in range(n_clusters):
+        cluster_descriptions = [descriptions[i] for i in range(len(descriptions)) if clusters[i] == cluster_id]
+        if cluster_descriptions:
+            most_common = Counter(cluster_descriptions).most_common(3)  # Top 3 common descriptions
+            print(f'Tuned Cluster {cluster_id}: {most_common}')

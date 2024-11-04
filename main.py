@@ -25,7 +25,7 @@ def main():
 
     # Step 2
     print("Step 2: Checking the embeddings")
-    check_embeddings(tuned_embedding, embeddings)
+    check_embeddings(tuned_embedding, embeddings, df["description"].tolist())
 
     torch.save(tuned_embedding, "outputs/tuned_embedding.pt")
 
