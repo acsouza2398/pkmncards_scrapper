@@ -16,7 +16,7 @@ The embeddings were generated using SBERT (Sentence-BERT), which is a modificati
 
 ### Training Process
 
-The autoencoder was trained using the Adam optimizer with a learning rate of 0.001 and 50 epochs. The loss function used was the Mean Squared Error (MSE), which is a common loss function used in autoencoders. The MSE loss function was chosen because it is a good loss function for regression problems due to minimizing the losses in reconstruction. This minimization is important to ensure that the meaning of the sentences will be preserved in the long run, which is crucial for the similarity search to make sense. The MSE loss function is defined as:
+The autoencoder was trained using the Adam optimizer with a learning rate of 0.001 and 100 epochs. The loss function used was the Mean Squared Error (MSE), which is a common loss function used in autoencoders. The MSE loss function was chosen because it is a good loss function for regression problems due to minimizing the losses in reconstruction. This minimization is important to ensure that the meaning of the sentences will be preserved in the long run, which is crucial for the similarity search to make sense. The MSE loss function is defined as:
 
 ![MSE Loss Function](outputs/mse_equation.png)
 
