@@ -15,10 +15,10 @@ def load_production_model():
     latest_run = client.search_runs(experiment_id, order_by=["start_time DESC"], max_results=1)[0]
 
     # load autoencoder model
-    autoencoder_path = f"runs:/{latest_run.info.run_id}/models/autoencoder"
+    autoencoder_path = f"mlruns/0/{latest_run.info.run_id}/artifacts/models/autoencoder"
     autoencoder = mlflow.pytorch.load_model(autoencoder_path)
     
-    embeddings_path = f"runs:/{latest_run.info.run_id}/tuned_embeddings/tuned_embedding.pt"
+    embeddings_path = f"mlruns/0/{latest_run.info.run_id}/artifacts/tuned_embeddings/tuned_embedding.pt"
     tuned_embeddings = torch.load(mlflow.artifacts.download_artifacts(embeddings_path))
     
     return autoencoder, tuned_embeddings
