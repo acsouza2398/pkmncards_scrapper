@@ -1,9 +1,11 @@
 # DL4.1. APS2 - Vector-Based Search
+
 Student: Ana Carolina Souza
 
 ## Step 1 - Find Embeddings
 
 ### Dataset
+
 The dataset used was obtained through webscraping, using Requests and Beautiful Soup, from the website [Pokémon Database](https://pokemondb.net/). The scrapper used to get the data is available in the `scrapper` folder, as well as the resulting dataset `compiled_pokemon.parquet` in the `output` folder. The dataset contains the name of the pokémon and a description that contains all of the pokédex entries compiled into a single text. The dataset has 1025 lines, one for each pokémon released so far.
 
 ### Generating Embeddings
@@ -28,7 +30,7 @@ Pre-tuned embeddings
 ![Embedding Tuned Plot](outputs/tuned_embeddings.png)
 Post-tuned embeddings
 
-Both plots show similar structures, but the post-tuned embeddings are more defined and more spread out. Despite this, the clusters are still not very well defined, which may be due to the overlap and variety of the descriptions of the pokémon. 
+Both plots show similar structures, but the post-tuned embeddings are more defined and more spread out. Despite this, the clusters are still not very well defined, which may be due to the overlap and variety of the descriptions of the pokémon.
 
 Original clusters:
 
@@ -46,7 +48,8 @@ The tuned clusters appear to have the same theming as the original ones, but the
 
 ## Step 3: Test the Search System
 
-The search system was tested by encoding a query and returning the most similar pokémon to the query. The search system uses the cosine similarity to calculate the similarity between the query and the pokémon descriptions. The same queries as the first APS weren't able to be reused exactly due to their vagueness. They were reconstructed with longer sentences to preserve the meaning, but give better context to the engine. The search system was tested with the following queries:
+The search system was tested by encoding a query and returning the most similar pokémon. It uses the cosine similarity to calculate the similarity between the query and the pokémon descriptions. The same queries as the first APS weren't able to be reused exactly due to their vagueness. They were reconstructed with longer sentences to preserve the meaning, but give better context to the engine. The following queries were tested:
+
 - Returns 10 results: "A creature that worships the sun and lives in an active volcano. It likes fire and arson."
 - Returns less than 10 results: "A creature that bullies others and prefers to be alone. It is very strong and likes to fight and dislikes other people."
 - Returns something not obvious: "Bakes cakes and serves pastries to friends"
@@ -57,43 +60,51 @@ It's important to note that each time you run the search system, the results may
 
 ## Step 4: MLOPs Specialist
 
-In order to deploy the code, Streamlit and MLFlow were used. Streamlit was chosen for the deploy as it is free and easy to use. The source code for the deploy is `app.py`. The link to the deploy is [here](https://pkmncards-scrapper.streamlit.app/). The deploy is a simple interface where the user can input a list of queries and get the most similar pokémon to the queries. The deploy uses the same model and code as the local version, but it is hosted on Streamlit's servers. The queries are encoded using the model and the most similar pokémon are returned to the user. In order to speed up the deploy, the loading of the model and embedding is cached using Streamlit's caching feature. This way, the model and embeddings are only loaded once and are reused for each query. This means that the results will remain consistent for each query, but may change if the model is updated.
+In order to deploy the code, Streamlit and MLFlow were used. Streamlit was chosen for the deploy as it is free and easy to use. The source code for the deploy is `app.py`and the link can be found [here](https://pkmncards-scrapper.streamlit.app/). It's a simple interface where the user can input a list of queries and get the most similar pokémon to the queries. The deploy uses the same model and code as the local version, but it is hosted on Streamlit's servers. The queries are encoded using the model and the most similar pokémon are returned to the user. In order to speed up the deploy, the loading of the model and embedding is cached using Streamlit's caching feature. This way, the model and embeddings are only loaded once and are reused for each query. This means that the results will remain consistent for each query, but may change if the model is updated.
 
 MLFlow was used to track the experiments and the model. The model was saved in the `mlruns` folder and the experiments were tracked using MLFlow. This permits the user to see the results of the experiments and the model that was used in the deploy and to easily change the model if needed without disrupting the deploy. In order to update the model, simply train it locally using `main.py`. The new model will be saved by MLFlow and be automatically used when commited to this repository and branch. Currently, the deploy uses the most recent model and tuned embeddings from the Default (0) experiment.
 
 ![deploy](outputs/deploy.png)
- 
+
 ## How to Run the Code
 
 Install the necessary dependencies by running the following command inside the `root` folder:
-```
+
+```bash
 pip install -r requirements.txt
 ```
 
 To generate the embeddings and test the model, run the following command in the root directory of the project:
+
 ```bash
 python main.py
 ```
 
 ### How to run the deploy locally
+
 To run the deploy locally, run the following command in the root directory of the project:
+
 ```bash
 streamlit run app.py
 ```
 
 ### How to use the scrapper
+
 The scrapper is a simple script that uses Requests and Beautiful Soup to get the pokédex entries from the Pokémon Database website. To use the scrapper, you need to have Python installed on your machine.
 Install the necessary dependencies by running the following command inside the `scrapper` folder:
-```
+
+```bash
 pip install -r requirements.txt
 ```
 
 You can run the scrapper by running the following command in the root directory of the project:
-```
+
+```bash
 python scrapper/main.py
 ```
 
 ## References
+
 - [MLFlow Documentation](https://www.mlflow.org/docs/latest/index.html)
 - [Streamlit Documentation](https://docs.streamlit.io/en/stable/)
 - [Sentence Transformers Documentation](https://www.sbert.net/docs/)
