@@ -8,7 +8,7 @@ __pycache__/
 
 # files
 !requirements.txt
-*.txt
+# *.txt
 # *.json
 # *.parquet
 
