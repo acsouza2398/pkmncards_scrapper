@@ -35,13 +35,13 @@ def main():
 
     df: pd.DataFrame = pd.read_parquet("scrapper/output/compiled_pokemon.parquet")
 
-    query_search = QuerySearch(original_model, autoencoder, tuned_embeddings, df["description"].tolist(), df["name"].tolist(), threshold=0.99)
+    query_search = QuerySearch(original_model, autoencoder, tuned_embeddings, df["description"].tolist(), df["name"].tolist())
 
     queries = st.text_area("Enter your queries (one per line)", "A creature that worships the sun and lives in an active volcano.\nBakes cakes and serves pastries to friends\nPsychic powers to destroy the world")
     queries_list = queries.strip().split("\n")
 
     if st.button("Search"):
-        results = query_search.search(queries_list)
+        results = query_search.search(queries_list, threshold=0.99)
 
         if len(queries_list) == 0:
             st.write("Please enter at least one query.")
