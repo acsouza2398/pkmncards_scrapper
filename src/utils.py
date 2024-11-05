@@ -58,7 +58,7 @@ def check_embeddings(tuned_model, model, descriptions, n_clusters=5):
     plt.savefig('outputs/embeddings.png')
     plt.show()
 
-    # original_cluster_analysis(clusters, descriptions, n_clusters)
+    original_cluster_analysis(clusters, descriptions, n_clusters)
 
     # Plot tuned embeddings
 
@@ -78,7 +78,7 @@ def check_embeddings(tuned_model, model, descriptions, n_clusters=5):
     plt.savefig('outputs/tuned_embeddings.png')
     plt.show()
 
-    # tuned_cluster_analysis(tuned_clusters, descriptions, n_clusters)
+    tuned_cluster_analysis(tuned_clusters, descriptions, n_clusters)
 
 
 def original_cluster_analysis(clusters, descriptions, n_clusters):

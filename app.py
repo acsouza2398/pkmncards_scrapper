@@ -4,17 +4,21 @@ import pandas as pd
 import torch
 from sentence_transformers import SentenceTransformer
 from src.query import QuerySearch
-from src.autoencoder import AutoEncoder
 
 @st.cache_resource
 def load_production_model():
-    # Get the latest run in the experiment
-    experiment_name = "Default"  # Replace with your experiment name
+    """
+    Load the production model from MLflow.
+
+    Returns:
+        autoencoder: The autoencoder model from the latest run.
+        tuned_embeddings: The tuned embeddings from the latest run.
+    """    
+    experiment_name = "Default"
     client = mlflow.tracking.MlflowClient()
     experiment_id = client.get_experiment_by_name(experiment_name).experiment_id
     latest_run = client.search_runs(experiment_id, order_by=["start_time DESC"], max_results=1)[0]
 
-    # load autoencoder model
     autoencoder_path = f"mlruns/0/{latest_run.info.run_id}/artifacts/models/autoencoder"
     autoencoder = mlflow.pytorch.load_model(autoencoder_path)
     
@@ -27,17 +31,13 @@ def main():
     st.title("Pokemon Character Query Search")
 
     original_model = SentenceTransformer("all-MiniLM-L6-v2")
-
-    # Load models and embeddings
     autoencoder, tuned_embeddings = load_production_model()
 
     df: pd.DataFrame = pd.read_parquet("scrapper/output/compiled_pokemon.parquet")
 
-    # Initialize the query search object
     query_search = QuerySearch(original_model, autoencoder, tuned_embeddings, df["description"].tolist(), df["name"].tolist())
 
-    # Get user input for queries
-    queries = st.text_area("Enter your queries (one per line)", "A creature that worships the sun and lives in an active volcano.\nBakes cakes and serves pastries to friends")
+    queries = st.text_area("Enter your queries (one per line)", "A creature that worships the sun and lives in an active volcano.\nBakes cakes and serves pastries to friends\nPsychic powers to destroy the world")
     queries_list = queries.strip().split("\n")
 
     if st.button("Search"):
@@ -51,10 +51,10 @@ def main():
             st.write("No results found.")
             return
 
-        c = st.columns(len(queries_list))  # Create columns
+        c = st.columns(len(queries_list))
 
         for i, (query, similar_descriptions) in enumerate(results.items()):
-            with c[i]:  # Access the correct column using the `cols` list
+            with c[i]:
                 st.write(f"Query: {query}")
                 st.write("Number of results: ", len(similar_descriptions))
                 for name, desc, score in similar_descriptions:

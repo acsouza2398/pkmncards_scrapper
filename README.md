@@ -53,11 +53,13 @@ The search system was tested by encoding a query and returning the most similar 
 
 The results are present in `outputs/results.json`.
 
+It's important to note that each time you run the search system, the results may change due to the tuning of the embeddings, which are changed slightly each time the model is trained. This means that the similarity between the queries and the pokémon descriptions may vary for each run. The results present in `outputs/results.json` are from the model before the deploy, which was not yet saved in MLFlow.
+
 ## Step 4: MLOPs Specialist
 
-In order to deploy the code, Streamlit and MLFlow were used. Streamlit was chosen for the deploy as it is free and easy to use. The source code for the deploy is `app.py`. The link to the deploy is [here](https://pkmncards-scrapper.streamlit.app/). The deploy is a simple interface where the user can input a list of queries and get the most similar pokémon to the queries. The deploy uses the same model and code as the local version, but it is hosted on Streamlit's servers.
+In order to deploy the code, Streamlit and MLFlow were used. Streamlit was chosen for the deploy as it is free and easy to use. The source code for the deploy is `app.py`. The link to the deploy is [here](https://pkmncards-scrapper.streamlit.app/). The deploy is a simple interface where the user can input a list of queries and get the most similar pokémon to the queries. The deploy uses the same model and code as the local version, but it is hosted on Streamlit's servers. The queries are encoded using the model and the most similar pokémon are returned to the user. In order to speed up the deploy, the loading of the model and embedding is cached using Streamlit's caching feature. This way, the model and embeddings are only loaded once and are reused for each query. This means that the results will remain consistent for each query, but may change if the model is updated.
 
-MLFlow was used to track the experiments and the model. The model was saved in the `mlruns` folder and the experiments were tracked using MLFlow. This permits the user to see the results of the experiments and the model that was used in the deploy and to easily change the model if needed without disrupting the deploy. Currently, the deploy uses the most recent model and tuned embeddings from the Default experiment.
+MLFlow was used to track the experiments and the model. The model was saved in the `mlruns` folder and the experiments were tracked using MLFlow. This permits the user to see the results of the experiments and the model that was used in the deploy and to easily change the model if needed without disrupting the deploy. In order to update the model, simply train it locally using `main.py`. The new model will be saved by MLFlow and be automatically used when commited to this repository and branch. Currently, the deploy uses the most recent model and tuned embeddings from the Default (0) experiment.
 
 ![deploy](outputs/deploy.png)
  
@@ -90,3 +92,9 @@ You can run the scrapper by running the following command in the root directory 
 ```
 python scrapper/main.py
 ```
+
+## References
+- [MLFlow Documentation](https://www.mlflow.org/docs/latest/index.html)
+- [Streamlit Documentation](https://docs.streamlit.io/en/stable/)
+- [Sentence Transformers Documentation](https://www.sbert.net/docs/)
+- [SBert](https://arxiv.org/abs/1908.10084)

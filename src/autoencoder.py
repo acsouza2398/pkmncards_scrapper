@@ -38,5 +38,5 @@ class AutoEncoder(nn.Module):
         Returns:
             Encoded representation of the input.
         """
-        with torch.no_grad():  # Disable gradient tracking
-            return self.encoder(x)  # Return the encoded representation
+        with torch.no_grad():
+            return self.encoder(x)

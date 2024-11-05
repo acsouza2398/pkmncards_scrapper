@@ -60,12 +60,12 @@ def main():
         
         # Optional: Save and log query results
         results_file = "outputs/results.json"
-        # with open(results_file, "w", encoding="utf-8") as f:
-        #     json_results = {
-        #         query: [(name, desc, float(score)) for name, desc, score in similar_descriptions]
-        #         for query, similar_descriptions in results.items()
-        #     }
-        #     json.dump(json_results, f, indent=4)
+        with open(results_file, "w", encoding="utf-8") as f:
+            json_results = {
+                query: [(name, desc, float(score)) for name, desc, score in similar_descriptions]
+                for query, similar_descriptions in results.items()
+            }
+            json.dump(json_results, f, indent=4)
         
         mlflow.log_artifact(results_file, artifact_path="results")
 
