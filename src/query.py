@@ -33,7 +33,7 @@ class QuerySearch:
             embeddings = self.original_model.encode(queries, convert_to_tensor=True)
             return embeddings.cpu()
 
-    def search(self, queries, top_k=10, threshold=0.99):
+    def search(self, queries, top_k=10, threshold=0.90):
         """
         Search for the most similar descriptions based on queries.
 

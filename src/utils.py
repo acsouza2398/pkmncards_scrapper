@@ -20,7 +20,7 @@ def loss(model, embeddings):
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     loss_fn = nn.MSELoss()
 
-    for epoch in tqdm(range(50)):
+    for epoch in tqdm(range(100)):
         optimizer.zero_grad()
         output = model(embeddings)
         loss = loss_fn(output, embeddings)

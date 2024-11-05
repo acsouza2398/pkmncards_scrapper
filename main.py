@@ -45,7 +45,7 @@ def main():
         queries = [
             "A creature that worships the sun and lives in an active volcano. It likes fire and arson.",
             "Bakes cakes and serves pastries to friends",
-            "A creature that bullies others and prefers to be alone. It is very strong and likes to fight and dislikes other people."
+            "Psychic powers to destroy the world"
         ]
 
         query_search = QuerySearch(model, autoencoder, tuned_embedding, df["description"].tolist(), df["name"].tolist())

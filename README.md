@@ -51,12 +51,12 @@ The tuned clusters appear to have the same theming as the original ones, but the
 The search system was tested by encoding a query and returning the most similar pokémon. It uses the cosine similarity to calculate the similarity between the query and the pokémon descriptions. The same queries as the first APS weren't able to be reused exactly due to their vagueness. They were reconstructed with longer sentences to preserve the meaning, but give better context to the engine. The following queries were tested:
 
 - Returns 10 results: "A creature that worships the sun and lives in an active volcano. It likes fire and arson."
-- Returns less than 10 results: "A creature that bullies others and prefers to be alone. It is very strong and likes to fight and dislikes other people."
+- Returns less than 10 results: "Psychic powers to destroy the world"
 - Returns something not obvious: "Bakes cakes and serves pastries to friends"
 
 The results are present in `outputs/results.json`.
 
-It's important to note that each time you run the search system, the results may change due to the tuning of the embeddings, which are changed slightly each time the model is trained. This means that the similarity between the queries and the pokémon descriptions may vary for each run. The results present in `outputs/results.json` are from the model before the deploy, which was not yet saved in MLFlow.
+It's important to note that each time you run the search system, the results may change due to the tuning of the embeddings, which are changed slightly each time the model is trained. This means that the similarity between the queries and the pokémon descriptions may vary for each run.
 
 ## Step 4: MLOPs Specialist
 

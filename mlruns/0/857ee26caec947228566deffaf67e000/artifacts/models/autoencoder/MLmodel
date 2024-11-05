@@ -1,0 +1,21 @@
+artifact_path: models/autoencoder
+flavors:
+  python_function:
+    config:
+      device: null
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pytorch
+    pickle_module_name: mlflow.pytorch.pickle_module
+    python_version: 3.11.7
+  pytorch:
+    code: null
+    model_data: data
+    pytorch_version: 2.3.0+cpu
+mlflow_version: 2.17.2
+model_size_bytes: 484782
+model_uuid: 31b0d2a404144250bb4b3f18a08e95d3
+run_id: 857ee26caec947228566deffaf67e000
+utc_time_created: '2024-11-05 19:09:27.103248'
